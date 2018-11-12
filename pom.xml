@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example</groupId>
+	<artifactId>springBootTest</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>springBootTest</name>
+	<description>Demo project for Spring Boot</description>
+
+    <!-- 获取springboot合适的默认配置, 该parent项目提供一下特性:-->
+    <!-- 默认编译级别为java 1.6;源码编码utf-8;一个dependency managemengt 节点，允许你省略常见依赖的<version>标签，继承自spring-boot-dependencies pom -->
+    <!-- 恰到好处的资源过滤 -->
+    <!-- 所有官方starters遵循相似的命名规则：spring-boot-starter-*,第三方starters不应以spring-boot开头 -->
+    
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.6.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<!-- 不是每个人都喜欢继承spring-boot-starter-parent pom,可能你需要使用公司的parent,如果不想使用spring-boot-starter-parent,通过设置scope=import,如下配置 -->
+     <!-- 以下设置不允许你使用属性覆盖个别依赖，为了达到这个目的，你需要在项目的 dependencyManagement节点中，在spring-boot-dependencies实体前插入一个节点-->
+     <!-- <dependencyManagement>
+        <dependencies> 
+        
+         <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-releasetrain</artifactId>
+            <version>Fowler-SR2</version>
+             <type>pom</type>
+             <scope>import</scope>
+         </dependency>
+         
+         
+          <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-dependencies</artifactId>
+             <version>2.0.6.RELEASE</version>
+             <type>pom</type>
+             <scope>import</scope>
+          </dependency>
+        </dependencies>
+     </dependencyManagement> -->
+     
+     
+     
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+
+	<dependencies>
+	   <!-- spring boot提供了一个它锁支持的精选依赖列表，在配置里你不需要提供任何依赖的版本，如果有必要你可以指定版本来覆盖spring boot的默认版本 -->
+	   <!-- springboot每次发次发布都关联一个spring框架的基础版本，所以建议不要自己指定spring版本 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<!-- 排除psring-boot对 spring-boot-starter-logging的依赖,默认logback-->
+			<!-- <exclusions>
+			  <exclusion>
+			     <groupId>org.springframe.boot</groupId>
+			     <artifactId>spring-boot-starter-logging</artifactId>
+			  </exclusion>
+			</exclusions> -->
+		</dependency>
+		
+		<!-- 添加log4j ,logback是log4j的优化，性能优于log4j-->
+		<!-- <dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-starter-log4j</artifactId>
+		</dependency> -->
+		
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		
+		
+		<!-- <dependency>
+	     <groupId>org.springframework.boot</groupId>
+	     <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency> -->
+        
+        <!-- 设置mybatis -->
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+   <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>6.0.4</version>
+    </dependency>
+    
+
+<!-- 支持热部署 -->
+<!-- <dependency>
+ <groupId>org.springframework</groupId>
+ <artifactId>springloaded</artifactId>
+ <version>1.2.5.RELEASE</version>
+</dependency> -->
+	</dependencies>
+ 
+    <!-- 创建可执行jar -->
+    <!-- 如果使用spring boot starter parent pom,你只需添加该插件而无需配置它，除非你想改变定义在parent中的设置 -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>
