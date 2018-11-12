@@ -1,12 +1,14 @@
 package com.example.helloWorld;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.domain.Customer;
+import com.example.service.CustomerService;
 
 @RestController//这是一个支持REST的控制器,组合注解@Controller@ResponseBody,@RestController
                  //告诉srping以字符串的形式渲染结果，并直接返回给调用者
@@ -22,15 +24,23 @@ public class HelloWorld {
 	@Autowired
 	private Customer customer;
 	
+	@Autowired
+	private CustomerService  customerService;
+	
 	
 	@RequestMapping("/helloWorld")
 	public String helloWorld() {
-		System.out.println("customer>>>"+customer.getCustomerName());
+	/*	System.out.println("customer>>>"+customer.getCustomerName());
 		System.out.println("desc>>>>"+customer.getDesc());
-		System.out.println("value>>>"+customer.getValue()+";;;int>>>"+customer.getIntValue());
+		System.out.println("value>>>"+customer.getValue()+";;;int>>>"+customer.getIntValue());*/
 		//throw new RuntimeException("发生错误");
-	
-		return customer.getCustomerName();
+		String customerName="";
+		List<Customer> customerList = customerService.selectList();
+	    if(customerList !=null && customerList.size() >0){
+	    	Customer customer = customerList.get(0);
+	    	customerName = customer.getCustomerName();
+	    }
+		return customerName;
 	}
 	
 	@RequestMapping("/index")

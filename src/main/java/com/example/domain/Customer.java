@@ -1,4 +1,4 @@
-package com.example.helloWorld;
+package com.example.domain;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -19,13 +19,13 @@ import org.springframework.stereotype.Component;
 public class Customer {
 	
 	//通过application.properties配置注入
-	@Value("${customerName}")
+	//@Value("${customerName}")
 	private String customerName;
 	
-	@Value("${usePhone}")
+	//@Value("${usePhone}")
 	private String usePhone;
 	
-	@Value("${desc}")
+	//@Value("${desc}")
 	private String desc;
 	
 	@Value("${value}")
