@@ -11,4 +11,6 @@ import com.example.domain.Customer;
 public interface CustomerDao {
      
 	List<Customer> selectList();
+	
+	void deleteById(Long id);
 }

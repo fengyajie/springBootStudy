@@ -43,6 +43,16 @@ public class HelloWorld {
 		return customerName;
 	}
 	
+	@RequestMapping("/deleteById")
+	public void deleteById(){
+		Long id=2L;
+		try{
+		customerService.deleteById(id);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	@RequestMapping("/index")
 	public String index(ModelMap map) {
 		//加一个属性，用来在模板中读取

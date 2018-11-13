@@ -34,7 +34,26 @@ public class Customer {
 	@Value("${intValue}")
 	private int intValue;
 	
+	private Integer id;
 	
+	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
 	//Spring Boot将尝试校验外部配置，默认使用JSR-303（如果在classpath路径中） ，
 	//你只需要将JSR-303 javax.validation 约束注解添加
 	//到 @ConfigurationProperties 类上

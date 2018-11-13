@@ -10,7 +10,7 @@
    </resultMap>
    
    <sql id="Base_Column_list">
-     id,customerName,usePhone,desc,firstName
+     id,customerName,usePhone,firstName
    </sql>
    
    <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -18,4 +18,7 @@
        <include refid="Base_Column_list"/>
        from customer
    </select>
+   <delete id="deleteById" parameterType="java.lang.Long">
+     delete from customer where id=#{id}
+   </delete>
 </mapper>
