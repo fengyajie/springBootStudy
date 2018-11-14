@@ -1,4 +1,4 @@
-package com.example.dao;
+package com.example.dao.customerShiro;
 
 import java.util.List;
 

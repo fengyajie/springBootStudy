@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dao.customerSpringboot.CustomerDao">
+   <resultMap id="BaseResultMap" type="com.example.domain.Customer">
+      <id column="id" property="id"/>
+      <result column="customerName" property="customerName"/>
+      <result column="usePhone" property="usePhone"/>
+      <result column="desc" property="desc"/>
+      <result column="firstName" property="firstName"/>
+   </resultMap>
+   
+   <sql id="Base_Column_list">
+     id,customerName,usePhone,firstName
+   </sql>
+   
+   <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String">
+     select 
+       <include refid="Base_Column_list"/>
+       from customer
+   </select>
+   <delete id="deleteById" parameterType="java.lang.Long">
+     delete from customer where id=#{id}
+   </delete>
+</mapper>

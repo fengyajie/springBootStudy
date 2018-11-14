@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.dao.CustomerDao;
+import com.example.dao.customerShiro.CustomerDao;
 import com.example.domain.Customer;
 import com.example.service.CustomerService;;
 

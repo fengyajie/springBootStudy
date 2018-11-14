@@ -94,7 +94,18 @@
 	     <groupId>org.springframework.boot</groupId>
 	     <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency> -->
-        
+        <!-- springboot-aop包,AOP切面注解,Aspectd等相关注解 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+<!-- jdbcTemple  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
         <!-- 设置mybatis -->
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
