@@ -12,6 +12,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 @Configuration
@@ -30,6 +31,10 @@ public class MybatisConfig {
 	public SqlSessionFactory shiroSqlSessionFactory(@Qualifier("shiroDataSource") DataSource dataSource) throws Exception{
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
+		sqlSessionFactoryBean.
+        setMapperLocations(new PathMatchingResourcePatternResolver().
+                getResources("classpath*:com/example/mapper/customerShiro/*.xml"));
+
 		return sqlSessionFactoryBean.getObject();
 	}
 	
