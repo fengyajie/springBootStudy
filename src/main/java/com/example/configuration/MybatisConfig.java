@@ -33,7 +33,7 @@ public class MybatisConfig {
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.
         setMapperLocations(new PathMatchingResourcePatternResolver().
-                getResources("classpath*:com/example/mapper/customerShiro/*.xml"));
+                getResources("classpath*:com/example/mapper/*/*.xml"));
 
 		return sqlSessionFactoryBean.getObject();
 	}
