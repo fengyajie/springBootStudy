@@ -16,7 +16,7 @@
    <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String">
      select 
        <include refid="Base_Column_list"/>
-       from springboot.customer
+       from customer
    </select>
    <delete id="deleteById" parameterType="java.lang.Long">
      delete from customer where id=#{id}
