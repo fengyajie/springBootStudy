@@ -11,4 +11,6 @@ public interface CustomerService {
 	List<Customer> selectList();
 	
 	void deleteById (Long id) throws Exception;
+	
+	List<Customer> selectSpringBoot();
 }

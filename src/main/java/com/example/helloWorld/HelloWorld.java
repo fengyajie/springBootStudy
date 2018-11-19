@@ -43,6 +43,17 @@ public class HelloWorld {
 		return customerName;
 	}
 	
+	@RequestMapping("/querySpringboot")
+	public String querySpringboot(){
+		String customerName="";
+		List<Customer> customerList = customerService.selectSpringBoot();
+	    if(customerList !=null && customerList.size() >0){
+	    	Customer customer = customerList.get(0);
+	    	customerName = customer.getCustomerName();
+	    }
+		return customerName;
+	}
+	
 	@RequestMapping("/deleteById")
 	public void deleteById(){
 		Long id=2L;

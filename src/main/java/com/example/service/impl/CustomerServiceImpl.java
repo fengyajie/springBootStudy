@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.customerShiro.CustomerDao;
+import com.example.dao.customerSpringboot.CustomerSpringbootDao;
 import com.example.domain.Customer;
 import com.example.service.CustomerService;;
 
@@ -17,6 +18,10 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerDao customerDao;
+	
+	
+	@Autowired
+	private CustomerSpringbootDao customerSpringbootDao;
 	
 	@Override
 	public List<Customer> selectList() {
@@ -43,6 +48,11 @@ public class CustomerServiceImpl implements CustomerService {
 			}catch(Exception e){
 				e.printStackTrace();
 			}*/
+	}
+
+	@Override
+	public List<Customer> selectSpringBoot() {
+		return customerSpringbootDao.selectList();
 	}
 
 }
