@@ -109,8 +109,8 @@ public class MailTest {
 	
 	public static void sendMail() {
 		String smtpFromMail = "fengyj@kq300061.com";  //账号    
-        String pwd  = "fyj321&wwq524!"; //密码   
-        String toMail = "1311594315@qq.com";//收件人
+        String pwd  = ""; //密码   
+        String toMail = "";//收件人
         String ccPepople = "";//抄送人
         
         String subject = "";//主题
