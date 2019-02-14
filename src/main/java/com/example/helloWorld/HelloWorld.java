@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.domain.Customer;
 import com.example.service.CustomerService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController//这是一个支持REST的控制器,组合注解@Controller@ResponseBody,@RestController
                  //告诉srping以字符串的形式渲染结果，并直接返回给调用者
                  //@RestController和@RequestMapping是springMvc的注解，不是springBoot的特定部分
@@ -27,7 +29,8 @@ public class HelloWorld {
 	@Autowired
 	private CustomerService  customerService;
 	
-	
+	@ApiOperation(value="helloworld")//给API增加说明
+	//@ApiImplicitParams、@ApiImplicitParam注解来给参数增加说明
 	@RequestMapping("/helloWorld")
 	public String helloWorld() {
 	/*	System.out.println("customer>>>"+customer.getCustomerName());
