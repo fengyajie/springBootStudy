@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.Customer;
 import com.example.service.CustomerService;
+import com.example.util.SpringUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -34,6 +35,8 @@ public class HelloWorld {
 	@RequestMapping("/helloWorld")
 	public String helloWorld() {
 		
+		Customer customer = (Customer) SpringUtil.getBean("customer");
+		System.out.println(customer.getCustomerName());
 	/*	System.out.println("customer>>>"+customer.getCustomerName());
 		System.out.println("desc>>>>"+customer.getDesc());
 		System.out.println("value>>>"+customer.getValue()+";;;int>>>"+customer.getIntValue());*/

@@ -16,9 +16,10 @@ public class GlobalExceptionHandler {
 	
 	//@ExceptionHandler用来定义函数针对的异常类型，最后将Exception对象和请求URL映射到error.html中
 	@ExceptionHandler(value=Exception.class)
-	@ResponseBody
-	public Result defaultErrorHandler(HttpServletRequest request,Exception e) throws Exception {
-		e.printStackTrace();
-		return new Result(Status.error,"发生错误");
+	//@ResponseBody
+	public String defaultErrorHandler(HttpServletRequest request,Exception e) throws Exception {
+		/*e.printStackTrace();
+		return new Result(Status.error,"发生错误");*/
+		return "my_error";
 	}
 }
