@@ -33,19 +33,27 @@ public class HelloWorld {
 	//@ApiImplicitParams、@ApiImplicitParam注解来给参数增加说明
 	@RequestMapping("/helloWorld")
 	public String helloWorld() {
+		
 	/*	System.out.println("customer>>>"+customer.getCustomerName());
 		System.out.println("desc>>>>"+customer.getDesc());
 		System.out.println("value>>>"+customer.getValue()+";;;int>>>"+customer.getIntValue());*/
-		//throw new RuntimeException("发生错误");
-		String customerName="";
+		throw new RuntimeException("发生错误");
+		/*String customerName="";
 		List<Customer> customerList = customerService.selectList();
 	    if(customerList !=null && customerList.size() >0){
 	    	Customer customer = customerList.get(0);
 	    	customerName = customer.getCustomerName();
 	    }
-		return customerName;
+		return customerName;*/
 	}
 	
+	@RequestMapping("/jsonTest")
+	public Customer jsonTest() {
+		Customer customer = new Customer();
+		customer.setCustomerName("fengyj");
+		customer.setUsePhone("12345678");
+		return customer;
+	}
 	@RequestMapping("/querySpringboot")
 	public String querySpringboot(){
 		String customerName="";
