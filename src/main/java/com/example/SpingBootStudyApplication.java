@@ -27,11 +27,11 @@ import com.example.servlet.MyServlet1;
  */
 @SpringBootApplication
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-//@ComponentScan(basePackages={"com.example.dao"})
+//@ComponentScan(basePackages={"com.example.dao"})指定扫描包路径，因为SpringBootStudyApplication.java
+//放在包最外层，扫描同级包及子包，所以这里不需要此注解,@ComponentScan,会覆盖@SpringBootApplication默认扫描同级包和子包注解
 @EnableTransactionManagement//如果mybatis中service实现类加入事务注解，需要此处加入注解
 @MapperScan("com.example.dao")//扫描dao,由于dao层没有实现，@MapperScan相当于配置文件<bean mapperScanComponent>,
                                //交由mybatis基于JDK动态代理的方式实现
-                           //@ComponentScan,会覆盖@SpringBootApplication默认扫描同级包和子包注解
 @ServletComponentScan//扫描相应的servlet包
 public class SpingBootStudyApplication {
 
