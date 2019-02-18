@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 public class SchedulingConfig {
 
-	@Scheduled(cron="0/20 * * * * ?")
+	@Scheduled(cron="0 0 1 * * ?")
 	public void task() {
 		System.out.println("任务执行>>>>>>>>>>");
 	}

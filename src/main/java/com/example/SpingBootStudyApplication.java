@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.example.servlet.MyServlet1;
 
 /**
  *exclude= {DataSourceAutoConfiguration.class}spring boot 会默认加载org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration这个类，
@@ -29,6 +32,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 @MapperScan("com.example.dao")//扫描dao,由于dao层没有实现，@MapperScan相当于配置文件<bean mapperScanComponent>,
                                //交由mybatis基于JDK动态代理的方式实现
                            //@ComponentScan,会覆盖@SpringBootApplication默认扫描同级包和子包注解
+@ServletComponentScan//扫描相应的servlet包
 public class SpingBootStudyApplication {
 
 	//不使用springboot默认，使用alibaba fastjson
@@ -46,6 +50,15 @@ public class SpingBootStudyApplication {
 	       HttpMessageConverter<?> converter = fastConverter;  
 	       return new HttpMessageConverters(converter);  
 	    }  
+	    
+	    /**
+	     * 注册servlet，不需要添加注解@ServletComponentScan
+	     * @return
+	     */
+	    @Bean
+	    public ServletRegistrationBean  myServlet1() {
+	    	return new ServletRegistrationBean(new MyServlet1(),"/myServlet1/*");
+	    }
 	 
 	public static void main(String[] args) {
 		SpringApplication.run(SpingBootStudyApplication.class, args);

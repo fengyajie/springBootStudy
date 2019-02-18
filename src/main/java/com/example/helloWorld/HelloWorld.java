@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.Customer;
+import com.example.domain.PropertiesTest;
 import com.example.service.CustomerService;
-import com.example.util.SpringUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -30,13 +30,16 @@ public class HelloWorld {
 	@Autowired
 	private CustomerService  customerService;
 	
+	@Autowired
+	private PropertiesTest propertiesTest;
+	
 	@ApiOperation(value="helloworld")//给API增加说明
 	//@ApiImplicitParams、@ApiImplicitParam注解来给参数增加说明
 	@RequestMapping("/helloWorld")
 	public String helloWorld() {
-		
-		Customer customer = (Customer) SpringUtil.getBean("customer");
-		System.out.println(customer.getCustomerName());
+		System.out.println(propertiesTest.getHost());
+		//Customer customer = (Customer) SpringUtil.getBean("customer");
+		//System.out.println(customer.getCustomerName());
 	/*	System.out.println("customer>>>"+customer.getCustomerName());
 		System.out.println("desc>>>>"+customer.getDesc());
 		System.out.println("value>>>"+customer.getValue()+";;;int>>>"+customer.getIntValue());*/
