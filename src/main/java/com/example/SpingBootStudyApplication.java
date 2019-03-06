@@ -9,8 +9,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -20,6 +22,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.example.servlet.MyServlet1;
+import com.sun.glass.ui.Application;
 
 /**
  *exclude= {DataSourceAutoConfiguration.class}spring boot 会默认加载org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration这个类，
@@ -33,9 +36,15 @@ import com.example.servlet.MyServlet1;
 @MapperScan("com.example.dao")//扫描dao,由于dao层没有实现，@MapperScan相当于配置文件<bean mapperScanComponent>,
                                //交由mybatis基于JDK动态代理的方式实现
 @ServletComponentScan//扫描相应的servlet包
-public class SpingBootStudyApplication {
+public class SpingBootStudyApplication extends SpringBootServletInitializer{
 
-	//不使用springboot默认，使用alibaba fastjson
+	//继承SpringBootServletInitializer实现configure方法,这样打成war包才能在tomcat上启动
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(Application.class);
+	}
+
+		//不使用springboot默认，使用alibaba fastjson
 	    @Bean  
 	    public HttpMessageConverters fastJsonHttpMessageConverters() {  
 	       FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();  
