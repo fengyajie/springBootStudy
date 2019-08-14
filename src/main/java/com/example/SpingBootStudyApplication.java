@@ -22,7 +22,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.example.servlet.MyServlet1;
-import com.sun.glass.ui.Application;
 
 /**
  *exclude= {DataSourceAutoConfiguration.class}spring boot 会默认加载org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration这个类，
@@ -41,7 +40,7 @@ public class SpingBootStudyApplication extends SpringBootServletInitializer{
 	//继承SpringBootServletInitializer实现configure方法,这样打成war包才能在tomcat上启动
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(Application.class);
+		return builder.sources(SpingBootStudyApplication.class);
 	}
 
 		//不使用springboot默认，使用alibaba fastjson
