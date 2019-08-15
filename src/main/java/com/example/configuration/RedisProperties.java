@@ -1,4 +1,4 @@
-package com.example.domain;
+package com.example.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -13,11 +13,17 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix="spring.redis")
 @PropertySource(value="classpath:redis.properties")
-public class PropertiesTest {
+public class RedisProperties {
 
 	private String host;
 	
 	private String port;
+	
+	private String database;
+	
+	private String password;
+	
+	
 
 	public String getHost() {
 		return host;
@@ -33,5 +39,21 @@ public class PropertiesTest {
 
 	public void setPort(String port) {
 		this.port = port;
+	}
+
+	public String getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(String database) {
+		this.database = database;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

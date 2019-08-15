@@ -178,6 +178,19 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
+        <dependency>
+           <groupId>org.springframework.session</groupId>
+           <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+        
+        <!-- pringboot2.X默认使用lettuce连接池，需要引入commons-pool2 -->
+        <!-- springboot 2.X 版本使用lettuce连接池来替换jedis。Lettuce和Jedis都是连接Redis Server的客户端程序，Jedis在实现上是直连redis server，
+            多线程环境下非线程安全，除非使用连接池，为每个Jedis势力增加物理连接。Lettuce基于Netty的势力连接，可以再多个线程间并发访问，且线程安全，
+            满足多线程环境下的并发访问，同时它是可伸缩的设计，一个连接实例不够的情况也可以按需增加连接实例。-->
+        <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-pool2</artifactId>
+        </dependency>
   
   <!-- <dependency>  
            <groupId>javax.servlet</groupId>  

@@ -7,8 +7,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.configuration.RedisProperties;
 import com.example.domain.Customer;
-import com.example.domain.PropertiesTest;
 import com.example.service.CustomerService;
 
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +31,7 @@ public class HelloWorld {
 	private CustomerService  customerService;
 	
 	@Autowired
-	private PropertiesTest propertiesTest;
+	private RedisProperties propertiesTest;
 	
 	@ApiOperation(value="helloworld")//给API增加说明
 	//@ApiImplicitParams、@ApiImplicitParam注解来给参数增加说明

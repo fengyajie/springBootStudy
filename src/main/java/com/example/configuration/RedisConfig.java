@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableCaching
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-public class RedisConfig {
+public class RedisConfig extends CachingConfigurerSupport{
 
 	
 	@Bean
