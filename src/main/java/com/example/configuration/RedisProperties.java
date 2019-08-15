@@ -23,6 +23,10 @@ public class RedisProperties {
 	
 	private String password;
 	
+	private String master;
+	
+	private String nodes;
+	
 	
 
 	public String getHost() {
@@ -55,5 +59,21 @@ public class RedisProperties {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getMaster() {
+		return master;
+	}
+
+	public void setMaster(String master) {
+		this.master = master;
+	}
+
+	public String getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(String nodes) {
+		this.nodes = nodes;
 	}
 }

@@ -25,7 +25,7 @@ public class TemplateController {
 	
 	@RequestMapping("/redisTest")
 	public void redisTest() {
-		redisUtil.set("k1", "v1");
+		redisUtil.set("k1", "v2");
 		
 		System.out.println(redisUtil.get("k1"));
 	}
