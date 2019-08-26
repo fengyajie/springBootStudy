@@ -13,4 +13,6 @@ public interface CustomerSpringbootDao {
 	List<Customer> selectList();
 	
 	void deleteById(Long id);
+	
+	Customer findUserByAccountAndPassword(Customer customer);
 }

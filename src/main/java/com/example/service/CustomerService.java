@@ -13,4 +13,6 @@ public interface CustomerService {
 	void deleteById (Long id) throws Exception;
 	
 	List<Customer> selectSpringBoot();
+	
+	Customer findUserByAccountAndPassword(Customer customer);
 }

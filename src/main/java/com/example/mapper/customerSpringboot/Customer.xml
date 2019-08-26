@@ -7,6 +7,7 @@
       <result column="usePhone" property="usePhone"/>
       <result column="desc" property="desc"/>
       <result column="firstName" property="firstName"/>
+      <result column="password" property="password"/>
    </resultMap>
    
    <sql id="Base_Column_list">
@@ -18,6 +19,15 @@
        <include refid="Base_Column_list"/>
        from customer
    </select>
+   
+   <select id="findUserByAccountAndPassword" parameterType="com.example.domain.Customer" resultType="com.example.domain.Customer">
+     select 
+       <include refid="Base_Column_list"/>
+       from customer
+       where customerName=#{customerName}
+             and password=#{password}
+   </select>
+   
    <delete id="deleteById" parameterType="java.lang.Long">
      delete from customer where id=#{id}
    </delete>

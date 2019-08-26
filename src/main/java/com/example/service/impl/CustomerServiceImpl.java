@@ -55,4 +55,9 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerSpringbootDao.selectList();
 	}
 
+	@Override
+	public Customer findUserByAccountAndPassword(Customer customer) {
+		return customerSpringbootDao.findUserByAccountAndPassword(customer);
+	}
+
 }

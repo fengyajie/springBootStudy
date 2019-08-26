@@ -36,6 +36,8 @@ public class Customer {
 	
 	private Integer id;
 	
+	private String password;
+	
 	
 	
 	public Integer getId() {
@@ -100,5 +102,13 @@ public class Customer {
 
 	public void setIntValue(int intValue) {
 		this.intValue = intValue;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

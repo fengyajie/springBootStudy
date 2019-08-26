@@ -1,6 +1,8 @@
 package com.example.configuration;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 /**
@@ -11,5 +13,11 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @Configuration
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds=3600*24)
 public class SessionConfig {
+	@Bean
+    public static ConfigureRedisAction configureRedisAction()
+    {
+        //让springSession不再执行config命令
+        return ConfigureRedisAction.NO_OP;
+    }
 
 }
