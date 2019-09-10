@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -15,13 +16,12 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.MapPropertySource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
@@ -53,34 +53,12 @@ public class RedisConfig extends CachingConfigurerSupport{
 	@Value("${spring.redis.cluster.nodes}")
 	private String clusterNodes;
 	
-	@Bean
-    public RedisSentinelConfiguration redisSentinelConfiguration(){
-        RedisSentinelConfiguration configuration = new RedisSentinelConfiguration();
-        String[] host = redisNodes.split(",");
-        for(String redisHost : host){
-            String[] item = redisHost.split(":");
-            String ip = item[0];
-            String port = item[1];
-            configuration.addSentinel(new RedisNode(ip, Integer.parseInt(port)));
-        }
-        configuration.setMaster(master);
-        return configuration;
-    }
-	
-	@Bean(name = "jedisClusterConfig")
-	public RedisClusterConfiguration getClusterConfiguration()
-	{
-	Map<String, Object> source = new HashMap<String, Object>();
-	source.put("spring.redis.cluster.nodes", clusterNodes);
-	source.put("spring.redis.cluster.max-redirects", 5);
-	return new RedisClusterConfiguration(new MapPropertySource("RedisClusterConfiguration", source));
-	}
 	
 	
 	@Bean
-	public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory connectionFatory){
+	public RedisTemplate<String,Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory){
 		RedisTemplate<String,Object> redisTemplate = new RedisTemplate<String,Object>();
-		redisTemplate.setConnectionFactory(connectionFatory);
+		redisTemplate.setConnectionFactory(lettuceConnectionFactory);
 		redisTemplate.setValueSerializer(jackson2JsonRedisSerializer());
 		//使用StringRedisSerializer来序列化和反序列化redis的key值
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
