@@ -53,7 +53,15 @@ public class RedisConfig extends CachingConfigurerSupport{
 	@Value("${spring.redis.cluster.nodes}")
 	private String clusterNodes;
 	
-	
+	//网上学习的结果都有这段代码，但是去掉又不影响什么，应该是不需要
+	/*
+	 * @Bean public RedisSentinelConfiguration redisSentinelConfiguration(){
+	 * RedisSentinelConfiguration configuration = new RedisSentinelConfiguration();
+	 * String[] host = redisNodes.split(","); for(String redisHost : host){ String[]
+	 * item = redisHost.split(":"); String ip = item[0]; String port = item[1];
+	 * configuration.addSentinel(new RedisNode(ip, Integer.parseInt(port))); }
+	 * configuration.setMaster(master); return configuration; }
+	 */
 	
 	@Bean
 	public RedisTemplate<String,Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory){
