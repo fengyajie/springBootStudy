@@ -15,8 +15,10 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.MapPropertySource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
@@ -48,6 +50,9 @@ public class RedisConfig extends CachingConfigurerSupport{
 	@Value("${spring.redis.sentinel.master}")
 	private String master;
 	
+	@Value("${spring.redis.cluster.nodes}")
+	private String clusterNodes;
+	
 	@Bean
     public RedisSentinelConfiguration redisSentinelConfiguration(){
         RedisSentinelConfiguration configuration = new RedisSentinelConfiguration();
@@ -61,6 +66,16 @@ public class RedisConfig extends CachingConfigurerSupport{
         configuration.setMaster(master);
         return configuration;
     }
+	
+	@Bean(name = "jedisClusterConfig")
+	public RedisClusterConfiguration getClusterConfiguration()
+	{
+	Map<String, Object> source = new HashMap<String, Object>();
+	source.put("spring.redis.cluster.nodes", clusterNodes);
+	source.put("spring.redis.cluster.max-redirects", 5);
+	return new RedisClusterConfiguration(new MapPropertySource("RedisClusterConfiguration", source));
+	}
+	
 	
 	@Bean
 	public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory connectionFatory){

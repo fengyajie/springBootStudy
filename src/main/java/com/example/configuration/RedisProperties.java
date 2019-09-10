@@ -1,5 +1,6 @@
 package com.example.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -27,8 +28,6 @@ public class RedisProperties {
 	
 	private String nodes;
 	
-	
-
 	public String getHost() {
 		return host;
 	}
