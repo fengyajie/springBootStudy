@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+
+<link scr="/css/plugins/chosen/chosen.css">
+<script type="text/javascript" scr="/js/plugins/chosen/chosen.jquery.js"></script>
+</head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="fixed-table-toolbar" style="overflow:initial;">
+						<div class="columns pull-right">
+							<button class="btn btn-success" onclick="reLoad()">查询</button>
+						</div>
+						<div class="columns pull-left">
+							<button type="button" class="btn  btn-primary" onclick="batchExport()">
+								<i class="fa fa-plus" aria-hidden="true"></i>导出
+							</button>
+						</div>
+						
+						<div class="pull-right search col-md-2 nopadding">
+							<select id="productType" name="productType" class="form-control" >
+								<option value="">--请选择商品类型--</option>
+								<option value="1">采购产品</option>
+								<option value="10">自有产品</option>
+							</select>
+						</div>
+						<div class="columns pull-right col-md-2 nopadding">
+							<input id="productName" type="text" class="form-control"
+								placeholder="请输入商品名称">
+						</div>
+						<div class="pull-right search col-md-2 nopadding">
+							<input type="hidden" name="stoType" id="stoType" value="1">
+							<select id="organList" name="organList"
+									class="selectpicker show-tick form-control"
+									data-live-search="true">
+							</select>
+						</div>
+						</div>
+					</div>
+					<table id="dataGrid" data-mobile-responsive="true" >
+					</table >
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript" src="/js/appjs/common/organ/organ.js"></script>
+	<script type="text/javascript" src="/js/appjs/sys/small/goodsSalesSortReportChart.js"></script>
+</body>
+</html>
+	 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zh3721.reportboss.service.system.permission.dao.mysql.SysRoleMenuMapper">
+  <resultMap id="BaseApiResultMap" type="com.zh3721.reportboss.service.system.permission.entity.SysRoleMenu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="menu_id" jdbcType="INTEGER" property="menuId" />
+  </resultMap>
+  
+  <select id="listMenuIdByRoleId" resultType="long">
+		select menu_id from sys_role_menu_new where role_id = #{roleId}
+	</select>
+
+	<delete id="removeByRoleId">
+		DELETE FROM sys_role_menu_new WHERE role_id=#{roleId}
+	</delete>
+
+	<delete id="removeByMenuId">
+		DELETE FROM sys_role_menu_new WHERE menu_id=#{menuId}
+	</delete>
+
+	<insert id="batchSaveRoleMenu">
+		INSERT INTO sys_role_menu_new(role_id, menu_id) values
+		<foreach item="item" index="index" collection="list"
+			separator=",">
+			(#{item.roleId},#{item.menuId})
+		</foreach>
+	</insert>
+	
+</mapper>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+<title>大商户日报表</title>
+<link scr="/css/plugins/chosen/chosen.css">
+<script type="text/javascript" scr="/js/plugins/chosen/chosen.jquery.js"></script>
+</head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="fixed-table-toolbar">
+					<input id="sqlPlan" name="sqlPlan" class="span2" type="hidden"/>
+				    <input id="filters" name="filters" class="span2" type="hidden"/>
+				    <input id="oldBeginDate" class="span2" type="hidden"/>
+				    <input id="oldEndDate" class="span2" type="hidden"/>
+				    <input id="flag" class="span2" type="hidden" value="0"/>
+						<div class="columns pull-right">
+							<button class="btn btn-success" onclick="reLoad()">查询</button>
+						</div>
+						<div class="columns pull-left">
+							<button shiro:hasPermission="cmReport:export" type="button" class="btn  btn-primary" onclick="exportFun()">
+								<i class="fa fa-plus" aria-hidden="true"></i>导出
+							</button>
+						</div>
+						<div class="columns pull-right col-md-2 nopadding">
+							<input id="beginDate" name="beginDate" type="text" class="form-control" placeholder="开始时间" style="background-color: #fff;" readonly="readonly">
+						</div>
+						<div class="columns pull-right col-md-2 nopadding">
+							<input id="endDate" name="endDate" type="text" class="form-control" placeholder="开始时间" style="background-color: #fff;" readonly="readonly">
+						</div>
+						<div class="columns pull-right col-md-2 nopadding">
+							<input id="storerName" name="storerName" type="text" class="form-control"
+								placeholder="请输入商户名称">
+						</div>
+						<div class="nice-select" style="">
+								<input id="organ" name="organ" onchange="organNameChange(this)" type="hidden"/>
+								<input id="organName" type="text" oninput="searchList(this.value)" class="span2" placeholder="分公司" autocomplete="off"/>
+								<ul id="list"></ul>
+						</div>
+					</div>
+					<table id="dataGrid" data-mobile-responsive="true" >
+					</table >
+					<table id="footer" data-mobile-responsive="true" >
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+<script type="text/javascript" src="/js/appjs/report/business/big/BusinessBigMonth.js"></script>
+</body>
+</html>

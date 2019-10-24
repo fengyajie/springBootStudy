@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -17,6 +18,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.example.configuration.shiro.realm.UserRealm;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+
 /**
  * shiro配置类
  * @author fyj
@@ -24,6 +27,14 @@ import com.example.configuration.shiro.realm.UserRealm;
  */
 @Configuration
 public class ShiroConfiguration {
+	
+	/**
+	 * ShiroDialect，为了在thymeleaf里使用shiro的标签的bean
+	 */
+	@Bean
+	public ShiroDialect shiroDialect() {
+		return new ShiroDialect();
+	}
 
 	/**
 	 * session会话管理，session交给shiro
@@ -35,13 +46,34 @@ public class ShiroConfiguration {
 		DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
 		//是否开启会话验证器，默认开启
 		defaultWebSessionManager.setSessionValidationSchedulerEnabled(true);
-		//禁止URL地址后面添加JSESSIONID
+		//禁止URL地址后面添加SESSIONID
 		defaultWebSessionManager.setSessionIdUrlRewritingEnabled(false);
+		//删除失效的sessionid
+		defaultWebSessionManager.setDeleteInvalidSessions(true);
 		//设置全局会话超时时间
 		defaultWebSessionManager.setGlobalSessionTimeout(globalSessionTimeout*1000);
 		defaultWebSessionManager.setSessionValidationInterval(globalSessionTimeout*1000);
+		//session验证
+		defaultWebSessionManager.setSessionValidationSchedulerEnabled(true); 
+		defaultWebSessionManager.setSessionValidationScheduler(getExecutorServiceSessionValidationScheduler()); 
+		
+		defaultWebSessionManager.getSessionIdCookie().setName("session-z-id");  
+		defaultWebSessionManager.getSessionIdCookie().setPath("/");  
+		defaultWebSessionManager.getSessionIdCookie().setMaxAge(60*60*24*7);  
 		return defaultWebSessionManager;
 	}
+	
+	/**
+	 * shiro提供了会话验证调度器，用于定期的验证会话是否已过期，如果过期将停止会话；出于性能考虑，一般情况下都是获取会话时来验证会话是否过期并停止会话的；
+	 * 但是如在web环境中，如果用户不主动退出是不知道会话是否过期的，因此需要定期的检测会话是否过期，Shiro提供了会话验证调度器SessionValidationScheduler。
+	 * @return
+	 */
+	@Bean(name = "sessionValidationScheduler")  
+    public ExecutorServiceSessionValidationScheduler getExecutorServiceSessionValidationScheduler() {  
+        ExecutorServiceSessionValidationScheduler scheduler = new ExecutorServiceSessionValidationScheduler();  
+        scheduler.setInterval(900000);  
+        return scheduler;  
+    }
 	
 	/**
 	 * 安全管理器
@@ -67,7 +99,6 @@ public class ShiroConfiguration {
 		
 		Map<String,String> filterMap = new LinkedHashMap<>();
 		filterMap.put("/static/**", "anon");
-		filterMap.put("/templates/hello.html", "anon");
 	    filterMap.put("/**", "authc");
 	    shiroFilter.setFilterChainDefinitionMap(filterMap);
 	    return shiroFilter;

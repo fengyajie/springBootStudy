@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zh3721.reportboss.service.system.permission.dao.mysql.SysRoleMapper">
+  <resultMap id="BaseApiResultMap" type="com.zh3721.reportboss.service.system.permission.entity.SysRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_sign" jdbcType="VARCHAR" property="roleSign" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  
+  
+	<select id="findRoleDesc" resultType="java.lang.String" parameterType="java.util.List">
+		select description from sys_role_new 
+		where id in 
+		 <foreach collection="list"  item="id"  open="(" separator=","   close=")">  
+              #{id,jdbcType=NUMERIC} 
+         </foreach>  
+		 and available = 1
+	</select> 
+	 
+</mapper>

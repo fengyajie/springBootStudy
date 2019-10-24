@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+<title>商品复购</title>
+</head>
+<body>
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="panel panel-info" style="overflow: auto;">
+						<div class="panel-heading" style="padding-left: 0px;">
+							<button class="btn btn-success pull-left" shiro:hasPermission="zgBuyAgainReport:zgBuyAgainReport:list" onclick="reLoad()">查询</button>
+							 <button type="button" class="btn btn-success pull-left" shiro:hasPermission="zgBuyAgainReport:zgBuyAgainReport:edit" onclick="exportExcel()">
+                                导出
+                            </button>
+						</div>
+                        <form id="form">
+                        <div>
+                           <div class="params-rows col-md-12 pull-left" style="padding-left: 0px;padding-right: 0px">
+                               <select name="year" id="syears" class="form-control">
+                               </select>
+                               <select name="month" id="smonths" class="form-control">
+                               </select> 
+                            </div>
+                            <div class="params-rows col-md-12 pull-left" style="padding-left: 0px;padding-right: 0px">
+                               <label>商品名称：</label><input name="productName" id="productName"  type="text" class="form-control"  placeholder="请输入商品名称" /> 
+                            </div>
+                        </div>
+                        </form>
+					</div>
+						<table id="dataGrid" data-mobile-responsive="true"
+							   style="width:1300px;table-layout:fixed"
+						>
+						
+							<thead>
+							<tr>
+							</tr>
+							</thead>
+						</table>
+					</div>
+					</div>
+				</div>
+			</div>
+	<div th:include="include :: footer"></div>
+    <style>
+        table td {
+            vertical-align: bottom;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+	<script type="text/javascript"
+		src="/js/appjs/report/business/zg/zgBuyAgainReportView.js"></script>
+</body>
+</html>

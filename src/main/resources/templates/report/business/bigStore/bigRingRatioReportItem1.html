@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+<link src="/css/plugins/chosen/chosen.css">
+<script type="text/javascript" src="/js/plugins/chosen/chosen.jquery.js"></script>
+<script
+   src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+</head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="panel panel-info">
+					    <div class="panel-heading">
+						 <button class="btn btn-success"  onclick="searchFun()">查询</button>
+						</div>
+					   <form id="searchForm">
+					   <div class="params-rows col-md-12">
+						<div class="columns col-md-2 nopadding">
+							<label>开始日期:</label><input id="beginDate" name="beginDate" type="date" class="form-control" placeholder="请选择开始日期" />
+						</div>
+						
+						<div class="columns col-md-2 nopadding">
+							<label>结束日期:</label><input id="endDate" name="endDate" type="date" class="form-control" placeholder="请选择结束日期" />
+						</div>
+						<div class="columns col-md-2 nopadding">
+						<label>类型:</label>
+							<select id="selectType" name="selectType" class="form-control" >
+								<option value="1" selected="selected">商户充值金额</option>
+								<option value="2">有效商户</option>
+								<option value="3">公司净收入</option>
+								<option value="4">商户充值余额</option>
+								<option value="5">商户粉丝数</option>
+							</select>
+						</div>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div data-options="region:'center',border:false">
+			         <div id="container" style="min-width: 300px; height: 300px"></div>
+		            </div>
+	</div>
+	<div th:include="include :: footer"></div>
+    <script type="text/javascript" src="/js/appjs/report/business/bigStore/bigRingRatioReportItem1.js"></script>
+</body>
+</html>
+	 

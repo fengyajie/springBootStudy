@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+    <!--<link scr="/css/plugins/chosen/chosen.css">
+    <script type="text/javascript" src="/js/plugins/chosen/chosen.jquery.js"></script>-->
+</head>
+<!--
+<link rel="stylesheet" href="/select-plug/css/select.css" type="text/css">
+-->
+<!--<link rel="stylesheet" href="/css/select-plug/css/select.css" type="text/css">-->
+
+<style>
+    .columns {
+        margin: 5px 30px 5px 0;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-body">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h5 class="title">查询条件</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="params-rows col-md-12">
+                            <div class="columns  col-md-2 nopadding">
+                                <input name="storeType" class="form-control" id="storeType" value="1" text="0"
+                                       type="hidden"/>
+                                <input name="beginDate" class="form-control" id="beginDate" type="text"
+                                       style="background-color: #fff;" readonly="readonly" placeholder="点击选择时间"/>
+                            </div>
+                            <div class="columns  col-md-2 nopadding">
+                                <input name="endDate" class="form-control" id="endDate" type="text"
+                                       style="background-color: #fff;" readonly="readonly" placeholder="点击选择时间"/>
+                            </div>
+                            <div class="columns col-md-2 nopadding">
+                                <input name="businessName" class="form-control" id="businessName" type="text"
+                                       placeholder="请选择商户名称"/>
+                            </div>
+                            <div class="columns  col-md-2 nopadding">
+                                <input name="sellerName" class="form-control" id="sellerName" type="text"
+                                       placeholder="销售人员"/>
+                            </div><!-- style="position:absolute;margin:55px 0px"-->
+
+                            <div class="columns col-md-2 nopadding ">
+                                <select name="status" id="status" class="form-control">
+                                    <option value="" selected="selected">全部</option>
+                                    <option value="1">有效</option>
+                                    <option value="0">无效</option>
+                                </select>
+                            </div>
+                          <!--  <div class="columns nice-select col-md-2 nopadding">
+                                <input id="organSysno" name="organSysno" type="hidden"/>
+                                <input id="organName" class="form-control" type="text" oninput="searchList(this.value)"
+                                       placeholder="分公司"/>
+                                <ul id="list" style="width: auto;"></ul>
+                            </div>-->
+                            <div class=" search col-md-2 nopadding">
+                                <input type="hidden" name="stoType" id="stoType" value="0">
+                                <select id="organList" name="organList"
+                                        class="selectpicker show-tick form-control"
+                                        data-live-search="true">
+                                </select>
+                            </div>
+                            <div class="columns col-md-2 nopaddingt" >
+                                <button class="btn btn-success" onclick="reLoad()">查询</button>
+                                <button type="button" class="btn  btn-primary" onclick="exportDayExcel()">
+                                    <i class="fa" aria-hidden="true"></i>导出
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <table id="dataGrid" data-mobile-responsive="true"
+                           style="text-overflow: ellipsis; white-space: nowrap;"
+                           style="width:1200px">
+                    </table>
+                </div>
+                <div>
+                    <table id="footer" data-mobile-responsive="true">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script type="text/javascript"
+        src="/js/appjs/report/business/smallStore/smallStoreDayReport.js"></script>
+<!--<script src="/select-plug/js/select.js" type="text/javascript" charset="utf-8"></script>-->
+<script type="text/javascript" src="/js/appjs/common/organ/organ.js"></script>
+</body>
+</html>

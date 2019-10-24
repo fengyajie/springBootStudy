@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+</head>
+
+
+<style>
+    .columns {
+        margin: 5px 30px 5px 0;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-body">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h5 class="title">查询条件</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="params-rows col-md-12">
+                            <div class="columns  col-md-2 nopadding">
+                                <input name="storeType" class="form-control" id="storeType" value="1" text="0"
+                                       type="hidden"/>
+                                <input name="beginDate" class="form-control" id="beginDate" type="text"
+                                       style="background-color: #fff;" readonly="readonly" placeholder="点击选择时间"/>
+                            </div>
+                            <div class="columns  col-md-2 nopadding">
+                                <input name="endDate" class="form-control" id="endDate" type="text"
+                                       style="background-color: #fff;" readonly="readonly" placeholder="点击选择时间"/>
+                            </div>
+                            <div class="columns col-md-2 nopadding">
+                                <input name="userIdParam"  id="userIdParam"  class="form-control" type="text" placeholder="请输入id" />
+                            </div>
+                            <div class="columns  col-md-2 nopadding">
+                                <input name="cellPhoneParam" id="cellPhoneParam"  class="form-control" type="text" placeholder="请输入手机号" />
+                            </div><!-- style="position:absolute;margin:55px 0px"-->
+                            <div class="columns col-md-2 nopaddingt" >
+                                <button class="btn btn-success" onclick="reLoad()">查询</button>
+                                <button type="button" class="btn  btn-primary" onclick="exportAccountExcel()">
+                                    <i class="fa" aria-hidden="true"></i>导出
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <table id="dataGrid" data-mobile-responsive="true"
+                           style="text-overflow: ellipsis; white-space: nowrap;"
+                           style="width:1200px">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script type="text/javascript"
+        src="/js/appjs/report/business/fundsManagement/cusCustomerAccountJsp.js"></script>
+</body>
+</html>

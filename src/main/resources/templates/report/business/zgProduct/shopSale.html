@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<style>
+    #count {position: relative; top: 300px; left: 80px;}
+</style>
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-body">
+                <form id="form">
+                    <div class="fixed-table-toolbar">
+                        <div class="columns pull-right">
+                            <button class="btn btn-success" type="button" shiro:hasPermission="zgProduct:shopSale:list" onclick="reLoad()">
+                                查询
+                            </button>
+                        </div>
+                        <div class="columns pull-left">
+                            <button type="button" class="btn  btn-primary" shiro:hasPermission="zgProduct:shopSale:export" onclick="batchExport()">
+                                <i aria-hidden="true"></i>导出
+                            </button>
+                        </div>
+                        <div class="columns pull-right col-md-2 nopadding">
+                            <input id="saleDate" name="saleDate" type="text" class="form-control" placeholder="请选择日期" style="background-color: #fff;" readonly="readonly">
+                        </div>
+                        <div class="columns pull-right col-md-2 nopadding">
+                            <input id="shopName" name="shopName" type="text" class="form-control"
+                                   placeholder="请输入商品名称">
+                        </div>
+                    </div>
+                </form>
+                <table id="exampleTable" data-mobile-responsive="true"
+                       style="text-overflow: ellipsis; white-space: nowrap;"
+                       style="width:1200px" >
+                </table >
+                <table id="footer" data-mobile-responsive="true" class="navbar-fixed-bottom" style="background-color: white;border-top: 1px solid #e7eaec;padding-left: 35px;padding-right: 35px;">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:include="include :: footer"></div>
+<style>
+    table td {
+        vertical-align: bottom;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+
+<script type="text/javascript" src="\js\appjs\report\business\zgProduct\shopSale.js"></script>
+</body>
+</html>

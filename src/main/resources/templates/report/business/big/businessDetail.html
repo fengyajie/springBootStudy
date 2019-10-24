@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<link href="/css/report.css" rel="stylesheet">
+<head th:include="include :: header">
+</head>
+<body>
+<div class="wrapper wrapper-content ">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-body">
+                <table id="dataGrid" data-mobile-responsive="true" style="table-layout:fixed">
+                    <thead>
+                    <tr>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div th:include="include :: footer"></div>
+<script>
+    var prefix = "/businessBig";
+    $(function () {
+        renderRows();
+    })
+
+    function renderRows() {
+        var config = getConfig()
+        $('#dataGrid').bootstrapTable(Object.assign(config, {
+            url: prefix + "/purchaseProDetailDataGrid", // 服务器数据的加载地址
+            columns: getGridDataColumns()
+        }));
+    }
+
+    function getConfig() {
+        return {
+            method: 'get', // 服务器数据的请求方式 get or post
+            iconSize: 'outline',
+            toolbar: '#exampleToolbar',
+            striped: true, // 设置为true会有隔行变色效果
+            dataType: "json", // 服务器返回的数据类型
+            singleSelect: false, // 设置为true将禁止多选
+            showColumns: false, // 是否显示内容下拉框（选择显示的列）
+            sidePagination: "server", // 设置在哪里进行分页，可选值为"client" 或者
+            onSort: function (name, order) {
+                $('#dataGrid').bootstrapTable('refreshOptions', {
+                    sortName: name,
+                    sortOrder: order
+                });
+            },
+            queryParams: function (params) {
+                return Object.assign( {
+                    // 说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
+                    limit: params.limit,
+                    offset: params.offset,
+                    sort: params.sort,
+                    order: params.order
+                },getParams());
+            },
+            searchAccentNeutralise: true,
+            resizable: true,
+            classes: "table table-bordered table-hover table-sm"
+        }
+    }
+
+    function getGridDataColumns() {
+        var columns = [{
+            field: 'id',
+            title: '序号',
+            width: 45,
+            formatter: function (value, row, index) {
+                // 获取每页显示的数量
+                var pageSize = $('#dataGrid').bootstrapTable(
+                    'getOptions').pageSize;
+                // 获取当前是第几页
+                var pageNumber = $('#dataGrid').bootstrapTable(
+                    'getOptions').pageNumber;
+                // 返回序号，注意index是从0开始的，所以要加上1
+                return pageSize * (pageNumber - 1) + index + 1;
+            }
+        }, {
+            align: 'center',
+            field: 'storeName',
+            title: '商户名称',
+        }, {
+            align: 'center',
+            field: 'total',
+            title: '采购花费总豆额',
+        }, {
+            align: 'center',
+            field: 'quantity',
+            title: '采购产品总数量',
+        }, {
+            align: 'center',
+            field: 'purchaseCount',
+            title: '采购次数',
+        }]
+        var columns2 = loadDynamicColumns();
+        return columns.concat(columns2);
+    }
+
+    function getParams() {
+        return function ($) {
+            return {
+                beginDate: $('#beginDate').val(),
+                endDate: $("#endDate").val(),
+                productName: $("#productName").val().trim(),
+                proStatus: $("#proStatus").val(),
+                productCode: $("#productCode").val()
+            }
+        }(window.parent.$)
+    }
+
+    function loadDynamicColumns() {
+        var columns= [];
+        $.ajax({
+            url: prefix + "/loadProPurchaseDetailDynamicColumns",
+            data: getParams(),
+            type: "POST",
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                for (var i = 0; i < result; i++)
+                    columns.push({
+                        field: 'purchase_' + (i + 1),
+                        title: '第' + (i + 1) + '次采购数量',
+                        align: 'center'
+                    });
+            }
+        });
+        return columns;
+    }
+</script>
+</body>
+</html>

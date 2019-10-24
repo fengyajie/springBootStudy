@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<link href="/css/report.css" rel="stylesheet">
+<head th:include="include :: header">
+</head>
+<body>
+<div class="wrapper wrapper-content ">
+    <div class="col-sm-12">
+        <div class="ibox" style="margin-bottom: 117.8px;">
+            <div class="ibox-body">
+                <div class="fixed-table-toolbar" style="overflow: auto;">
+                    <div class="col-sm-1 columns pull-right" style="padding-left: 0px;">
+                        <button class="btn btn-success pull-left" onclick="reLoad()">查询</button>
+                    </div>
+                    <div class="col-sm-1 columns pull-left"
+                         style="padding-right: 0px;text-align: right;padding-left: 0px;">
+                        <button shiro:hasPermission="goodsPurchased:export"
+                                type="button" class="btn  btn-primary" onclick="exportExcel()">
+                            <i class="fa fa-plus" aria-hidden="true"></i>导出
+                        </button>
+                    </div>
+                    <div class="col-sm-10 columns" style="padding-left: 0px;padding-right: 0px">
+                        <!--{"beginDate":"2019-10-01","endDate":"2019-10-21","productName":"","proStatus":"0"}-->
+                        <input id="productCode" name="productCode" type="hidden" value="0">
+                        <div class="columns pull-right col-md-2 nopadding">
+                            <input id="endDate" name="endDate" type="text" class="form-control"
+                                   placeholder="结束时间"
+                                   readonly="readonly">
+                        </div>
+                        <div class="columns pull-right col-md-2 nopadding">
+                            <input id="beginDate" name="beginDate" type="text" class="form-control"
+                                   placeholder="开始时间"
+                                   readonly="readonly">
+                        </div>
+                        <div class="columns pull-right col-md-2 nopadding">
+                            <input id="productName" name="productName" type="text" class="form-control"
+                                   placeholder="商品名称">
+                        </div>
+                        <div class="pull-right search col-md-2 nopadding">
+                            <select id="proStatus" name="proStatus" class="form-control">
+                                <option value="0">==商品状态==</option>
+                                <option value="3">上架</option>
+                                <option value="2">下架</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--style="width:1200px; table-layout:fixed;word-break:break-all;"-->
+                <table id="dataGrid" data-mobile-responsive="true" style="table-layout:fixed">
+                    <thead>
+                    <tr>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<form method="POST" id="export">
+    <input id="params" name="params" type="hidden"/>
+</form>
+<div class="navbar-fixed-bottom statistics-list-3">
+    <table id="footer" data-mobile-responsive="true" style="white-space: nowrap;">
+    </table>
+</div>
+<div th:include="include :: footer"></div>
+<script type="text/javascript"
+        src="/js/appjs/report/business/bigStore/bigProPurchaseReportView.js?1"></script>
+</body>
+</html>

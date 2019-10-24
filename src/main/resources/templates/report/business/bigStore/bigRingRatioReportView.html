@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+<title>大商户环比图</title>
+<link src="/css/plugins/chosen/chosen.css"/>
+<script type="text/javascript" src="/js/plugins/chosen/chosen.jquery.js"></script>
+</head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="fixed-table-toolbar">
+						<iframe style="width:50%;height:454px;  float: left;border:none"  src="/view/bigRingRatioReportItem1" ></iframe>
+	                   <iframe style="width:50%;height:454px;  float: left;border:none"  src="/view/bigRingRatioReportItem2" ></iframe>
+	                    <iframe style="width:50%;height:454px;  float: left;border:none"  src="/view/bigRingRatioReportItem3" ></iframe>
+	                    <iframe style="width:50%;height:454px;  float: left;border:none"  src="/view/bigRingRatioReportItem4" ></iframe>
+					</div>
+					<table id="dataGrid" data-mobile-responsive="true" >
+					</table >
+					<table id="footer" data-mobile-responsive="true" >
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+</body>
+</html>
+	 

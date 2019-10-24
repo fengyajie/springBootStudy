@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<!--<head th:include="include :: header">-->
+<head>
+	<meta charset="utf-8"><link rel="icon" href="https://jscdn.com.cn/highcharts/images/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/plugins/layer/layer.js"></script>
+	<script src="/js/plugins/layer/laydate/laydate.js" ></script>
+	<script type="text/javascript" src="/js/appjs/sys/small/smallStoreDayReportChart.js"></script>
+	<script type="text/javascript" src="/js/appjs/common/organ/organ.js"></script>
+		<script type="text/javascript" src="/js/plugins/highcharts/highcharts.js" ></script>
+		<script type="text/javascript" src="/js/plugins/highcharts/exporting.js" ></script>
+		<script type="text/javascript" src="/js/plugins/highcharts/series-label.js" ></script>
+		<script type="text/javascript" src="/js/plugins/highcharts/oldie.js" ></script>
+		<script type="text/javascript" src="/js/plugins/highcharts/highcharts-zh_CN.js" ></script>
+
+	<script>
+		var title = {
+			text: '小商户商品每日销售折线图'
+		};
+		var xAxis = {
+			categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+		};
+		var yAxis = {
+			title: {
+				text: '金额/数量'
+			},
+			plotLines: [{
+				value: 0,
+				width: 1,
+				color: '#808080'
+			}]
+		};
+		var legend = {
+			layout: 'vertical',
+			align: 'right',
+			verticalAlign: 'middle',
+			borderWidth: 0,
+		};
+		var series =  [
+			{
+				name: 'Tokyo',
+				data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+			},
+			{
+				name: 'New York',
+				data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+			},
+			{
+				name: 'Berlin',
+				data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+			},
+			{
+				name: 'Berlin',
+				data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+			}
+		];
+
+		$(function(){
+			 getSmallDayFoldData();
+			loadDate();
+			$("svg text:last").hide();
+		});
+
+		function getSmallDayFoldData() {
+			var date = $("#datea").val();
+			$.ajax({
+				url : "/businessSmallRep/smallStoreChartReport" ,
+				data: {
+					'date': $("#datea").val(),
+					'seller': $("#organList").val(),
+					'saleSort': $("#saleSort").val()
+				},
+				type : "POST",
+				dataType : "json",
+				async: false,
+				success:function(result) {
+					xAxis.categories = result.message.categories;
+
+					series[0].name = result.message.productNameList[0];
+					series[0].data = result.message.list1;
+
+					series[1].name = result.message.productNameList[1];
+					series[1].data = result.message.list2;
+
+					series[2].name = result.message.productNameList[2];
+					series[2].data = result.message.list3;
+
+					series[3].name = result.message.productNameList[3];
+					series[3].data = result.message.list4;
+
+					series[4].name = result.message.productNameList[4];
+					series[4].data = result.message.list5;
+
+					series[5].name = result.message.productNameList[5];
+					series[5].data = result.message.list6;
+
+					series[6].name = result.message.productNameList[6];
+					series[6].data = result.message.list7;
+
+					series[7].name = result.message.productNameList[7];
+					series[7].data = result.message.list8;
+
+					series[8].name = result.message.productNameList[8];
+					series[8].data = result.message.list9;
+
+					series[9].name = result.message.productNameList[9];
+					series[9].data = result.message.list10;
+					loadDate();
+				},
+			});
+		}
+
+		function loadDate() {
+			var json = {};
+			json.title = title;
+			json.xAxis = xAxis;
+			json.yAxis = yAxis;
+			json.legend = legend;
+			json.series = series;
+			$('#container').highcharts(json);
+			$('svg').children("text:last-child").hide();
+		}
+
+	</script>
+
+</head>
+<body >
+				<div style="text-align: center">
+						<div  style="height: 63px; overflow: hidden; margin-left: 5px">
+								<table  width="100%" border="0" bordercolor="#ddd" cellspacing="0" style="margin-top: 0px;">
+									<tr>
+										<th>
+											日期:<input id="datea"  type="text" style="width: 100px;margin-right: 10px;margin-left: 10px;height: 20px">
+											<input type="hidden" name="stoType" id="stoType" value="1">
+											<select id="organList" name="organList"
+													class="selectpicker show-tick form-control"
+													data-live-search="true" style="height: 25px">
+											</select>
+											销售排名:
+											<select name="saleSort" id="saleSort" style="height: 25px;width: 100px">
+												<option value="1">销量前十</option>
+												<option value="2">销量后十</option>
+											</select>
+											<button class="btn btn-success" onclick="getSmallDayFoldData()">查询</button>
+										 </th>
+										</tr>
+									</table>
+							</div>
+
+                            <div id="container" style="max-width:1500px;height:400px;display: inline-block"></div>
+
+				</div>
+                            </body>
+                            </html>

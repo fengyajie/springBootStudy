@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<style>
+    .params-rows .columns{margin: 4px 30px 4px 0;}
+</style>
+<head th:include="include :: header">
+    <script src="static/js/exporting.js"></script>
+    <script src="static/js/highcharts.js"></script>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="col-sm-12">
+        <div class="ibox">
+            <div class="ibox-body">
+                <form>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h5 class="title">查询条件</h5>
+                        </div>
+                        <div class="panel-body">
+                            <div class="params-rows col-md-12">
+                                <div class="columns col-md-2 nopadding">
+                                    <input id="beginDate" name="beginDate" type="text" class="form-control" placeholder="请选择日期" style="background-color: #fff;" readonly="readonly">
+                                </div>
+                                <div class="columns col-md-2 nopadding">
+                                    <input id="endDate" name="endDate" type="text" class="form-control" placeholder="请选择日期" style="background-color: #fff;" readonly="readonly">
+                                </div>
+                                <div class="columns col-md-2 nopadding">
+                                    <select id="categoryName" class="form-control" >
+                                        <option value="">--类目--</option>
+                                        <option th:each="category,channelState:${categoryList}" th:value="${category.thirdName}" th:text="${category.thirdName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="params-rows pull-right col-md-12">
+                                <button type="button" class="btn btn-success btn-sm" onclick="getuserTimeCountFoldData()">
+                                    <i class="fa fa-plus hidden" aria-hidden="true"></i>查询
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-options="region:'center',border:false" id="second">
+                        <div id="fold"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script type="text/javascript" src="/js/appjs/report/business/zgProduct/userTimeReport.js"></script>
+</body>
+</html>

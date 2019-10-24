@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+<title>大商户环比图</title>
+<link src="/css/plugins/chosen/chosen.css">
+<script type="text/javascript" src="/js/plugins/chosen/chosen.jquery.js"></script>
+</head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="panel panel-info">
+					  <div class="panel-heading">
+							<button class="btn btn-success" onclick="searchFun()">查询</button>
+						</div>
+					   <form id="searchForm">
+					  
+						<div class="params-rows col-md-12">
+						   <label>筛选:</label>
+							<select id="selectType" name="selectType" class="form-control" >
+								<option value="1" selected="selected">商户赠送金额</option>
+								<option value="2">用户赠送次数</option>
+								<option value="3">用户支付金额</option>
+								<option value="4">用户支付次数</option>
+								<option value="5">公司净收金额</option>
+							</select>
+						</div>
+						<div class="params-rows col-md-12">
+						    <label>月份:</label>
+							<input id="month" name="month" type="month"   value="2019-10-18"/>
+						</div>
+						
+						 <div class="params-rows col-md-12">
+						   <label>商户名称：</label><select name="businessName" id="businessName" class="form-control">
+						    </select>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div data-options="region:'center',border:false">
+			         <div id="container" style="min-width: 300px; height: 300px"></div>
+		            </div>
+	</div>
+	<div th:include="include :: footer"></div>
+    <script type="text/javascript" src="/js/appjs/report/business/bigStore/bigRingRatioReportItem4.js"></script>
+</body>
+</html>

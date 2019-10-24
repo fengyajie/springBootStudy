@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字体图标</title>
+    <link href="css/fontmain.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+<div class="ico-list">
+     <i class="pd-icon-hc01" aria-hidden="true"></i>
+	 <i class="pd-icon-hc02" aria-hidden="true"></i>
+	 <i class="pd-icon-hc03" aria-hidden="true"></i>
+	 <i class="pd-icon-hc04" aria-hidden="true"></i>
+	 <i class="pd-icon-hc05" aria-hidden="true"></i>
+</div>
+
+<script type="text/javascript">
+    var index = parent.layer.getFrameIndex(window.name);
+    //给父页面传值
+    $('.ico-list i').on('click', function(){
+        parent.$('#icon').val($(this).attr('class'));
+        parent.layer.close(index);
+    });
+</script>
+</body>
+</html>

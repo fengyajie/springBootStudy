@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+</head>
+<body>
+<div class="wrapper wrapper-content ">
+    <div class="col-sm-12">
+        <div class="ibox" style="margin-bottom: 117.8px;">
+            <div class="ibox-body">
+                <div class="fixed-table-toolbar" style="overflow:initial;">
+                    <div class="col-sm-1 columns pull-right" style="padding-left: 0px;">
+                        <button class="btn btn-success pull-left" onclick="reLoad()">查询</button>
+                    </div>
+                    <div class="col-sm-1 columns pull-left"
+                         style="padding-right: 0px;text-align: right;padding-left: 0px;">
+                        <button shiro:hasPermission="businessBigMonth:export"
+                                type="button" class="btn  btn-primary" onclick="exportExcel()">
+                            <i class="fa fa-plus" aria-hidden="true"></i>导出
+                        </button>
+                    </div>
+                    <div id="conditions" class="col-sm-10 columns" style="padding-left: 0px;padding-right: 0px">
+                        <div class="columns pull-right col-md-2 nopadding">
+                            <input id="monthDate" type="text" class="form-control"
+                                   placeholder="请选择日期" style="background-color: #fff;"
+                                   readonly="readonly">
+                        </div>
+
+                        <div class="columns pull-right col-md-2 nopadding">
+                            <input id="sellerName" type="text" class="form-control"
+                                   placeholder="请输入销售人员姓名">
+                        </div>
+                        <div class="columns pull-right col-md-2 nopadding">
+                            <input id="storerName" type="text" class="form-control"
+                                   placeholder="请输入商户名称">
+                        </div>
+
+                        <div class="pull-right search col-md-2 nopadding">
+                            <select id="state" name="state" class="form-control">
+                                <option value="">==商户状态==</option>
+                                <option value="0">有效</option>
+                                <option value="1">无效</option>
+                            </select>
+                        </div>
+                        <div class="pull-right search col-md-2 nopadding">
+                            <select id="isNew" name="isNew" class="form-control">
+                                <option value="">==本月新增用户==</option>
+                                <option value="1">是</option>
+                                <option value="2">否</option>
+                            </select>
+                        </div>
+                        <div class="pull-right search col-md-2 nopadding">
+                            <select id="housing" name="housing" class="form-control">
+                                <option value="">==商户类型==</option>
+                                <option value="0">到店</option>
+                                <option value="1">到家</option>
+                            </select>
+                        </div>
+                        
+                        <div class="pull-right search col-md-2 nopadding">
+								<input type="hidden" name="stoType" id="stoType" value="0">
+								<select id="organList" name="organList"
+									class="selectpicker show-tick form-control"
+									data-live-search="true">
+								</select>
+							</div>
+							
+							
+                    </div>
+                </div>
+                <!--style="width:1200px; table-layout:fixed;word-break:break-all;"-->
+                <table id="dataGrid" data-mobile-responsive="true"
+                       style="width:3000px;table-layout:fixed"
+                >
+                    <thead>
+                    <tr>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<form method="POST" id="export">
+    <input id="params" name="params" type="hidden"/>
+</form>
+<div class="navbar-fixed-bottom" style="
+    background-color: white;
+    border-top: 1px solid #e7eaec;
+    padding-left: 35px;
+    padding-right: 35px;">
+    <table id="footer" data-mobile-responsive="true" style="white-space: nowrap;">
+    </table>
+</div>
+
+<div th:include="include :: footer"></div>
+<style>
+    table td {
+        vertical-align: bottom;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+<script th:inline="javascript">
+    var  dataType = [[${dataType}]];
+    console.log("请求类型:" + dataType);
+</script>
+
+	<script type="text/javascript" src="/js/appjs/common/organ/organ.js?1"></script>
+<script type="text/javascript"
+        src="/js/appjs/report/business/big/BusinessBigMonth.js?1"></script>
+        
+</body>
+</html>
