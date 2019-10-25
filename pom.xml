@@ -6,7 +6,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>springBootTest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>springBootTest</name>
 	<description>Demo project for Spring Boot</description>
@@ -233,6 +233,11 @@
     <artifactId>thymeleaf-extras-shiro</artifactId>
     <version>2.0.0</version>
 </dependency>
+
+<dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+        </dependency>
   
   <!-- <dependency>  
            <groupId>javax.servlet</groupId>  
@@ -275,6 +280,21 @@
             </configuration>
 			</plugin>
 		</plugins>
+		
+		<!-- 添加资源 -->
+        <!-- <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                src/main/resources下的指定资源放行
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.html</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources> -->
 	</build>
 
 

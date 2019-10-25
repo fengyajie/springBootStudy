@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zh3721.reportboss.service.system.user.dao.mysql.SysUserMapper">
-  <resultMap id="BaseApiResultMap" type="com.zh3721.reportboss.service.system.user.entity.SysUser">
+<mapper namespace="com.example.dao.system.SysUserMapper">
+  <resultMap id="BaseApiResultMap" type="com.example.domain.system.SysUser">
     <!--
       WARNING - @mbg.generated
     -->

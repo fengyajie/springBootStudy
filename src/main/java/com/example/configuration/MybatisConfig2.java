@@ -11,7 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -22,13 +21,11 @@ public class MybatisConfig2 {
 
 	@Bean(name="springbootDataSource")
 	@ConfigurationProperties(prefix="spring.datasource.springboot")
-	@Primary
 	public DataSource springbootDataSource(){
 		return DataSourceBuilder.create().build();
 	}
 	
 	@Bean(name="springbootSqlSessionFactory")
-	@Primary
 	public SqlSessionFactory springbootSqlSessionFactory(@Qualifier("springbootDataSource") DataSource dataSource) throws Exception{
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
@@ -39,7 +36,6 @@ public class MybatisConfig2 {
 	}
 	
 	@Bean(name="springbootTransactionManager")
-	@Primary
 	public DataSourceTransactionManager springbootTransactionManager(@Qualifier("springbootDataSource") DataSource dataSource){
 		return new DataSourceTransactionManager(dataSource);
 	}

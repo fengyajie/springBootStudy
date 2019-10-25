@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zh3721.reportboss.service.system.resource.dao.mysql.SysMenuMapper">
-  <resultMap id="BaseApiResultMap" type="com.zh3721.reportboss.service.system.resource.entity.SysMenu">
+<mapper namespace="com.example.dao.system.SysMenuMapper">
+  <resultMap id="BaseApiResultMap" type="com.example.domain.system.SysMenu">
     <!--
       WARNING - @mbg.generated
     -->
@@ -17,7 +17,7 @@
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   
-   <select id="listMenuByUserId" resultType="com.zh3721.reportboss.service.system.resource.entity.SysMenu">
+   <select id="listMenuByUserId" resultType="com.example.domain.system.SysMenu">
 		select distinct
 			m.menu_id, parent_id, menu_name, url, 
 			perms, `type`, icon, order_num, create_time, modify_time

@@ -1,7 +1,5 @@
 package com.example.configuration.shiro.realm;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,6 +12,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.stereotype.Component;
 
 import com.example.domain.Customer;
 import com.example.domain.UserInfo;
@@ -25,6 +24,7 @@ import com.example.util.ApplicationContextRegister;
  * @author fyj
  *
  */
+@Component
 public class UserRealm extends AuthorizingRealm {
 
 	/**

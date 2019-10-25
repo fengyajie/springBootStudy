@@ -94,15 +94,16 @@ public class MyWebAppConfigurer implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		//可以通过http://127.0.0.1:8080/templates/hello.html访问resources/templates/hello.html页面
-		registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates/");
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 	}
 
 	//此方法可以很方便的实现一个请求到视图的映射，而无需书写controller
 	//这时访问http://127.0.0.1:8080/login时，会直接返回login.html页面
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("templates/login.html");
-	}
+		/*
+		 * registry.addViewController("/login").setViewName("templates/login.html");
+		 */}
 
 	
 	
