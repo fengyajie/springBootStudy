@@ -14,8 +14,10 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
+import com.example.dao.system.SysUserMapper;
 import com.example.domain.Customer;
 import com.example.domain.UserInfo;
+import com.example.domain.system.SysUser;
 import com.example.service.system.SysMenuService;
 import com.example.util.ApplicationContextRegister;
 
@@ -48,8 +50,12 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken)authcToken;
 		String password = new String((char[]) token.getCredentials());
+		
+		SysUserMapper sysUserMapper = ApplicationContextRegister.getBean(SysUserMapper.class);
 		//查询用户信息
-		Customer user = null;//sysUserDao.selectOne(token.getUsername());
+		SysUser sysUser = new SysUser();
+		sysUser.setUsername(token.getUsername());
+		SysUser user = sysUserMapper.selectList(sysUser).get(0);
 		if (!password.equals(user.getPassword())) {// 密码错误
 			throw new IncorrectCredentialsException("用户名或密码错误！");
 		}

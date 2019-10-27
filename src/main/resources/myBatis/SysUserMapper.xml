@@ -31,4 +31,8 @@
 		select DISTINCT dept_id from sys_user_new
 	</select>
 	
+	<select id="selectList" parameterType="com.example.domain.system.SysUser" resultType="com.example.domain.system.SysUser">
+	   select su.password from sys_user  su where su.username=#{username}
+	</select>
+	
 </mapper>
