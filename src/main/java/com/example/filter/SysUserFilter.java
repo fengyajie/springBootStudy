@@ -46,7 +46,7 @@ public class SysUserFilter extends AccessControlFilter {
 	 * 会自动调用这两个方法决定是否继续处理
 	 */
 	@Override
-	public boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+	public boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
 		Subject subject = getSubject(request,response);
 		if(subject == null) {
 			return true;

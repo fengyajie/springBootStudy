@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.configuration.annotation.CurrentUser;
+import com.example.domain.Tree;
 import com.example.domain.UserInfo;
 import com.example.service.system.SysMenuService;
 import com.example.util.ApiResult;
 import com.example.util.ApplicationContextRegister;
 import com.example.util.MD5Utils;
 
-import sun.reflect.generics.tree.Tree;
 
 @Controller
 public class LoginController {

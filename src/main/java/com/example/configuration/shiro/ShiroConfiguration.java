@@ -3,6 +3,8 @@ package com.example.configuration.shiro;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.Filter;
+
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -17,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.example.configuration.shiro.realm.UserRealm;
+import com.example.filter.SysUserFilter;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
@@ -75,6 +78,13 @@ public class ShiroConfiguration {
         return scheduler;  
     }
 	
+	@Bean
+	public SysUserFilter sysUserFilter() {
+		return new SysUserFilter();
+	}
+	
+	
+	
 	/**
 	 * 安全管理器
 	 * @param userRealm
@@ -97,11 +107,18 @@ public class ShiroConfiguration {
 		shiroFilter.setLoginUrl("/loginView");
 		shiroFilter.setUnauthorizedUrl("/");
 		
-		Map<String,String> filterMap = new LinkedHashMap<>();
-		filterMap.put("/static/**", "anon");
-		filterMap.put("/login", "anon");
-	    filterMap.put("/**", "authc");
-	    shiroFilter.setFilterChainDefinitionMap(filterMap);
+		Map<String, Filter> filterMap = new LinkedHashMap<>();
+		filterMap.put("sysUser", sysUserFilter());
+		shiroFilter.setFilters(filterMap);
+		
+		
+		Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
+		filterChainDefinitionMap.put("/static/**", "anon");
+		filterChainDefinitionMap.put("/loginView", "anon");
+		filterChainDefinitionMap.put("/", "anon");
+		filterChainDefinitionMap.put("/login", "anon");
+		filterChainDefinitionMap.put("/**", "authc,sysUser");
+	    shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
 	    return shiroFilter;
 	}
 	

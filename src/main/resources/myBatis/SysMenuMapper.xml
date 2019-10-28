@@ -21,9 +21,9 @@
 		select distinct
 			m.menu_id, parent_id, menu_name, url, 
 			perms, `type`, icon, order_num, create_time, modify_time
-		from sys_menu_new m
-			left join sys_role_menu_new rm on m.menu_id = rm.menu_id 
-			left join sys_user_role_new ur on rm.role_id =ur.role_id 
+		from sys_menu m
+			left join sys_role_menu rm on m.menu_id = rm.menu_id 
+			left join sys_user_role ur on rm.role_id =ur.role_id 
 		where ur.user_id = #{userId}
 			and m.type in(0, 1)
 		order by m.order_num
