@@ -17,7 +17,7 @@
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   
-   <select id="listMenuByUserId" resultType="com.example.domain.system.SysMenu">
+   <select id="listMenuByUserId" resultMap="BaseApiResultMap">
 		select distinct
 			m.menu_id, parent_id, menu_name, url, 
 			perms, `type`, icon, order_num, create_time, modify_time

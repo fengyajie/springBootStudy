@@ -3,6 +3,7 @@ package com.example.configuration.shiro;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 
 import org.apache.shiro.mgt.SecurityManager;
@@ -12,9 +13,11 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -121,6 +124,17 @@ public class ShiroConfiguration {
 	    shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
 	    return shiroFilter;
 	}
+	
+	//解决报错：org.apache.shiro.UnavailableSecurityManagerException: No SecurityManager accessible to the calling code, either bound to the org.apache.shiro.ut
+	@Bean
+    public FilterRegistrationBean securityFilterChain(AbstractShiroFilter securityFilter) {
+        FilterRegistrationBean registration = new FilterRegistrationBean(securityFilter);
+        registration.setOrder(Integer.MAX_VALUE-1);//排在ZHandleDotDOFilter的前面
+        registration.setName("shiroFilter");
+        registration.setDispatcherTypes(DispatcherType.REQUEST,DispatcherType.ASYNC);
+        registration.setDispatcherTypes(DispatcherType.REQUEST);
+        return registration;
+    }
 	
 	/**
 	 * shiro生命周期处理器，保证实现了Shiro内部lifecycle函数的bean执行

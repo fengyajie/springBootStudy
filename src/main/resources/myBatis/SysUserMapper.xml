@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="selectList" parameterType="com.example.domain.system.SysUser" resultType="com.example.domain.system.SysUser">
-	   select su.password from sys_user  su where su.username=#{username}
+	   select su.password as password,su.username as username,su.user_id as userId from sys_user  su where su.username=#{username}
 	</select>
 	
 </mapper>

@@ -51,15 +51,17 @@ public class SysUserFilter extends AccessControlFilter {
 		if(subject == null) {
 			return true;
 		}
-		UserInfo userInfo = (UserInfo) subject.getPrincipal();
-		if(null == userInfo) {
+		SysUser sysUser = (SysUser) subject.getPrincipal();
+		if(null == sysUser) {
 			return true;
 		}
 		
 		SysUserService sysUserService = ApplicationContextRegister.getBean(SysUserService.class);
-		SysUser sysUser = sysUserService.findByName(userInfo.getUsername());
+		SysUser sysUserInfo = sysUserService.findByName(sysUser.getUsername());
 		UserInfo target = new UserInfo();
-		BeanUtils.copyProperties(sysUser, target);
+		target.setUserId(sysUserInfo.getUserId());
+		target.setUsername(sysUserInfo.getUsername());
+		target.setPassword(sysUserInfo.getPassword());
 		request.setAttribute("user", target);
 		return true;
 	}
