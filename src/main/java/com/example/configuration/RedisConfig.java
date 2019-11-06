@@ -71,16 +71,11 @@ public class RedisConfig extends CachingConfigurerSupport {
 	/**
 	 * 缓存的key是 包名+方法名+参数列表
 	 */
-	@Bean
-	public KeyGenerator keyGenerator() {
-		return (target, method, objects) -> {
-			StringBuilder sb = new StringBuilder();
-			sb.append(target.getClass().getName());
-			sb.append("::" + method.getName() + ":");
-			for (Object obj : objects) {
-				sb.append(obj.toString());
-			}
-			return sb.toString();
-		};
-	}
+	/*
+	 * @Bean public KeyGenerator keyGenerator() { return (target, method, objects)
+	 * -> { StringBuilder sb = new StringBuilder();
+	 * sb.append(target.getClass().getName()); sb.append("::" + method.getName() +
+	 * ":"); for (Object obj : objects) { sb.append(obj.toString()); } return
+	 * sb.toString(); }; }
+	 */
 }
