@@ -8,6 +8,11 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.example.configuration.annotation.CurrentUser;
 
+/**
+ * 用于绑定@CurrentUser的方法参数解析器
+ * @author fyj
+ *
+ */
 public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver{
 
 	public CurrentUserMethodArgumentResolver() {

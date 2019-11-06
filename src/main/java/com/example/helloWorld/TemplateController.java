@@ -13,30 +13,20 @@ import com.example.util.RedisUtil;
 
 @Controller
 public class TemplateController {
-
-	@Autowired
-	private RedisUtil redisUtil;
-	
-	@RequestMapping("/helloHtmlTem")
-	public String template(Map<String,Object> map) {
-		System.out.println("........");
-		return "hello";
-	}
-	
-	@RequestMapping("/redisTest")
-	public void redisTest() {
-		redisUtil.set("k1", "v2");
-		
-		System.out.println(redisUtil.get("k1"));
-	}
-	
-	@RequestMapping("/uid")
-	public String uid(HttpSession session) {
-		UUID uuid = (UUID) session.getAttribute("uid");
-		if(null == uuid) {
-			uuid = UUID.randomUUID();
-		}
-		session.setAttribute("uid", uuid);
-		return session.getId();
-	}
-}
+	/*
+	 * 
+	 * @Autowired private RedisUtil redisUtil;
+	 * 
+	 * @RequestMapping("/helloHtmlTem") public String template(Map<String,Object>
+	 * map) { System.out.println("........"); return "hello"; }
+	 * 
+	 * @RequestMapping("/redisTest") public void redisTest() { redisUtil.set("k1",
+	 * "v2");
+	 * 
+	 * System.out.println(redisUtil.get("k1")); }
+	 * 
+	 * @RequestMapping("/uid") public String uid(HttpSession session) { UUID uuid =
+	 * (UUID) session.getAttribute("uid"); if(null == uuid) { uuid =
+	 * UUID.randomUUID(); } session.setAttribute("uid", uuid); return
+	 * session.getId(); }
+	 */}

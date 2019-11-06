@@ -8,23 +8,28 @@ import javax.servlet.Filter;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
-import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.core.RedisTemplate;
 
+import com.example.configuration.RedisSessionDAO;
 import com.example.configuration.shiro.realm.UserRealm;
 import com.example.filter.SysUserFilter;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import cn.hutool.core.codec.Base64;
 
 /**
  * shiro配置类
@@ -48,7 +53,7 @@ public class ShiroConfiguration {
 	 * @return
 	 */
 	@Bean
-	public DefaultWebSessionManager sessionManager(@Value("${myframe.sessionTimeout:3600}") long globalSessionTimeout) {
+	public DefaultWebSessionManager sessionManager(RedisTemplate redisTemplate) {
 		DefaultWebSessionManager defaultWebSessionManager = new DefaultWebSessionManager();
 		//是否开启会话验证器，默认开启
 		defaultWebSessionManager.setSessionValidationSchedulerEnabled(true);
@@ -57,8 +62,8 @@ public class ShiroConfiguration {
 		//删除失效的sessionid
 		defaultWebSessionManager.setDeleteInvalidSessions(true);
 		//设置全局会话超时时间
-		defaultWebSessionManager.setGlobalSessionTimeout(globalSessionTimeout*1000);
-		defaultWebSessionManager.setSessionValidationInterval(globalSessionTimeout*1000);
+		//defaultWebSessionManager.setGlobalSessionTimeout(globalSessionTimeout*1000);
+		//defaultWebSessionManager.setSessionValidationInterval(globalSessionTimeout*1000);
 		//session验证
 		defaultWebSessionManager.setSessionValidationSchedulerEnabled(true); 
 		defaultWebSessionManager.setSessionValidationScheduler(getExecutorServiceSessionValidationScheduler()); 
@@ -66,9 +71,26 @@ public class ShiroConfiguration {
 		defaultWebSessionManager.getSessionIdCookie().setName("session-z-id");  
 		defaultWebSessionManager.getSessionIdCookie().setPath("/");  
 		defaultWebSessionManager.getSessionIdCookie().setMaxAge(60*60*24*7);  
+		defaultWebSessionManager.setSessionDAO(redisSessionDAO(redisTemplate));
 		return defaultWebSessionManager;
 	}
 	
+	@Bean
+	public ShiroRedisCache shiroRedisCache(RedisTemplate redisTemplate) {
+		ShiroRedisCache shiroRedisCache = new ShiroRedisCache(redisTemplate);
+		return shiroRedisCache;
+	}
+	
+	 /**
+     * RedisSessionDAO shiro sessionDao层的实现 通过redis
+     * 使用的是shiro-redis开源插件
+     */
+    @Bean
+    public RedisSessionDAO redisSessionDAO(RedisTemplate redisTemplate) {
+        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+        redisSessionDAO.setShiroRedisCache(shiroRedisCache(redisTemplate));
+        return redisSessionDAO;
+    }
 	/**
 	 * shiro提供了会话验证调度器，用于定期的验证会话是否已过期，如果过期将停止会话；出于性能考虑，一般情况下都是获取会话时来验证会话是否过期并停止会话的；
 	 * 但是如在web环境中，如果用户不主动退出是不知道会话是否过期的，因此需要定期的检测会话是否过期，Shiro提供了会话验证调度器SessionValidationScheduler。
@@ -89,18 +111,41 @@ public class ShiroConfiguration {
 	
 	
 	/**
-	 * 安全管理器
+	 * 安全管理器  
+	 * 配置各种manager,跟xml的配置很像，但是，这里有一个细节，就是各个set的次序不能乱
 	 * @param userRealm
 	 * @param sessionManager
 	 * @return
 	 */
 	@Bean("securityManager")
-	public SecurityManager securityManager(UserRealm userRealm,SessionManager sessionManager) {
+	public SecurityManager securityManager(UserRealm userRealm,RedisTemplate<String,Object> redisTemplate) {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+		//配置 rememberMeCookie 查看源码可以知道，这里的rememberMeManager就仅仅是一个赋值，所以先执行
+		securityManager.setRememberMeManager(rememberMeManager());
+		//配置 缓存管理类 cacheManager，这个cacheManager必须要在前面执行，因为setRealm 和 setSessionManage都有方法初始化了cachemanager,看下源码就知道了
+		securityManager.setCacheManager(cacheManager(redisTemplate));
 		securityManager.setRealm(userRealm);
-		securityManager.setRememberMeManager(null);
-		securityManager.setSessionManager(sessionManager);
+		securityManager.setSessionManager(sessionManager(redisTemplate));
 		return securityManager;
+	}
+	
+	private ShiroRedisCacheManager cacheManager(RedisTemplate redisTemplate) {
+		return new ShiroRedisCacheManager(redisTemplate);
+	}
+	
+	private SimpleCookie rememberMeCookie() {
+		SimpleCookie simpleCookie = new SimpleCookie(CookieRememberMeManager.DEFAULT_REMEMBER_ME_COOKIE_NAME);
+		//是否只在https协议下传输
+		simpleCookie.setSecure(false);
+		return simpleCookie;
+	}
+	
+	private CookieRememberMeManager rememberMeManager() {
+		CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+		cookieRememberMeManager.setCookie(rememberMeCookie());
+		// rememberMe cookie 加密的密钥
+        cookieRememberMeManager.setCipherKey(Base64.decode("ZWvohmPdUsAWT3=KpPqda"));
+        return cookieRememberMeManager;
 	}
 	
 	@Bean("shiroFilter")

@@ -36,6 +36,8 @@ public class Constant {
 	public static final Long SYS_USER_ID = 0L;
 
     public static final String DES_SECURITY_KEY = "purchase_3721_!@#_567";
+    
+    public static final String CACHE_TYPE="redis";
 
     /**
      * 默认第一页

@@ -1,16 +1,20 @@
 package com.example.domain.system;
 
-import java.beans.Transient;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.data.annotation.Id;
 
 import com.google.common.base.Joiner;
 
-public class SysUser {
+public class SysUser implements Serializable{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4301210421374250030L;
+
+	/**
      * 用户ID
      */
     private Long userId;

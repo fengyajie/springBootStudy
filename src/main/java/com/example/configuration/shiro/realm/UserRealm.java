@@ -55,11 +55,11 @@ public class UserRealm extends AuthorizingRealm {
 		//查询用户信息
 		SysUser sysUser = new SysUser();
 		sysUser.setUsername(token.getUsername());
-		SysUser user = sysUserMapper.selectList(sysUser).get(0);
-		if (!password.equals(user.getPassword())) {// 密码错误
+		sysUser = sysUserMapper.selectList(sysUser).get(0);
+		if (!password.equals(sysUser.getPassword())) {// 密码错误
 			throw new IncorrectCredentialsException("用户名或密码错误！");
 		}
-		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
+		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(sysUser, password, getName());
 		
 		return info;
 	}
