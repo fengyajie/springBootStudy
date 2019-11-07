@@ -250,6 +250,13 @@
     <artifactId>hutool-all</artifactId>
     <version>5.0.3</version>
 </dependency>
+
+<!-- shiro整合cas单点 -->
+    <dependency> 
+      <groupId>org.apache.shiro</groupId> 
+      <artifactId>shiro-cas</artifactId> 
+      <version>1.2.4</version> 
+    </dependency> 
   
   <!-- <dependency>  
            <groupId>javax.servlet</groupId>  

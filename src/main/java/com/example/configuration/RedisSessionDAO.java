@@ -17,9 +17,7 @@ import com.example.util.SerializeUtils;
 public class RedisSessionDAO extends AbstractSessionDAO {
 
     private static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
-    /**
-     * shiro-redis的session对象前缀
-     */
+    
     private ShiroRedisCache  shiroRedisCache;
     
     

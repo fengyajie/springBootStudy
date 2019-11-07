@@ -169,15 +169,18 @@ public class ShiroConfiguration {
 	}
 	
 	//解决报错：org.apache.shiro.UnavailableSecurityManagerException: No SecurityManager accessible to the calling code, either bound to the org.apache.shiro.ut
+	//til.ThreadContext or as a vm static singleton.  This is an invalid application configuration.
+	
 	@Bean
-    public FilterRegistrationBean securityFilterChain(AbstractShiroFilter securityFilter) {
-        FilterRegistrationBean registration = new FilterRegistrationBean(securityFilter);
-        registration.setOrder(Integer.MAX_VALUE-1);//排在ZHandleDotDOFilter的前面
-        registration.setName("shiroFilter");
-        registration.setDispatcherTypes(DispatcherType.REQUEST,DispatcherType.ASYNC);
-        registration.setDispatcherTypes(DispatcherType.REQUEST);
-        return registration;
-    }
+	public FilterRegistrationBean securityFilterChain(AbstractShiroFilter securityFilter) {
+		FilterRegistrationBean registration = new FilterRegistrationBean(securityFilter);
+		registration.setOrder(Integer.MAX_VALUE - 1);// 排在ZHandleDotDOFilter的前面
+		registration.setName("shiroFilter");
+		registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC);
+		registration.setDispatcherTypes(DispatcherType.REQUEST);
+		return registration;
+	}
+	 
 	
 	/**
 	 * shiro生命周期处理器，保证实现了Shiro内部lifecycle函数的bean执行
