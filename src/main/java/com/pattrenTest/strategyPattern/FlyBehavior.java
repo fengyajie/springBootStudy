@@ -1,4 +1,4 @@
-package com.strategyPattern;
+package com.pattrenTest.strategyPattern;
 
 public interface FlyBehavior {
 
