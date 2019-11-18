@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.dao.system.SysUserRoleMapper;
+import com.example.dao.customerShiro.SysUserRoleMapper;
 import com.example.domain.system.SysUserRole;
 import com.example.service.system.SysUserRoleService;
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.dao.system.SysUserMapper;
+import com.example.dao.customerShiro.SysUserMapper;
 import com.example.domain.system.SysUser;
 import com.example.service.system.SysRoleService;
 import com.example.service.system.SysUserService;

@@ -16,7 +16,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 @Configuration
-@MapperScan(basePackages="com.example.dao.*",sqlSessionTemplateRef="shiroSqlSessionTemplate")
+@MapperScan(basePackages="com.example.dao.customerShiro",sqlSessionTemplateRef="shiroSqlSessionTemplate")
 public class MybatisConfig {
 
 	@Bean(name="shiroDataSource")
@@ -33,7 +33,7 @@ public class MybatisConfig {
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.
         setMapperLocations(new PathMatchingResourcePatternResolver().
-                getResources("classpath*:myBatis/*Mapper.xml"));
+                getResources("classpath*:myBatis/customerShiro/*Mapper.xml"));
 
 		return sqlSessionFactoryBean.getObject();
 	}

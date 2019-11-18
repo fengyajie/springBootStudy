@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
-import com.example.dao.system.SysMenuMapper;
+import com.example.dao.customerShiro.SysMenuMapper;
 import com.example.domain.Tree;
 import com.example.domain.system.SysMenu;
 import com.example.service.system.SysMenuService;

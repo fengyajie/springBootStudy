@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.dao.system.SysRoleMapper;
+import com.example.dao.customerShiro.SysRoleMapper;
 import com.example.domain.system.SysRole;
 import com.example.domain.system.SysRoleMenu;
 import com.example.service.system.SysRoleMenuService;

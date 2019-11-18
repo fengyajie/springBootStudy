@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.customerShiro.CustomerDao;
-import com.example.dao.customerSpringboot.CustomerSpringbootDao;
+import com.example.dao.customerSpringboot.CustomerSpringbootMapper;
 import com.example.domain.Customer;
 import com.example.service.CustomerService;;
 
@@ -21,7 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	
 	@Autowired
-	private CustomerSpringbootDao customerSpringbootDao;
+	private CustomerSpringbootMapper customerSpringbootDao;
 	
 	@Override
 	public List<Customer> selectList() {

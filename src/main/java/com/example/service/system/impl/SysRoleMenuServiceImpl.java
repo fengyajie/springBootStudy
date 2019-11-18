@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
-import com.example.dao.system.SysRoleMenuMapper;
+import com.example.dao.customerShiro.SysRoleMenuMapper;
 import com.example.domain.system.SysRoleMenu;
 import com.example.service.system.SysRoleMenuService;
 

@@ -14,7 +14,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
-import com.example.dao.system.SysUserMapper;
+import com.example.dao.customerShiro.SysUserMapper;
 import com.example.domain.Customer;
 import com.example.domain.UserInfo;
 import com.example.domain.system.SysUser;
