@@ -6,6 +6,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>springBootTest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+    <!--默认是jar-->
 	<packaging>jar</packaging>
 
 	<name>springBootTest</name>
@@ -190,16 +191,14 @@
          <groupId>com.alibaba</groupId>  
          <artifactId>fastjson</artifactId>  
          <version>1.2.15</version>  
-  </dependency> 
-  
-  <!-- 监控和管理环境 -->
-  <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-actuator</artifactId>
-    <version>2.1.1.RELEASE</version>
-</dependency>
-  
+  </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
   <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -262,28 +261,45 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-  
-  <!-- <dependency>  
-           <groupId>javax.servlet</groupId>  
-           <artifactId>javax.servlet-api</artifactId>  
-       </dependency>
-       
-       <dependency>  
-           <groupId>javax.servlet</groupId>  
-           <artifactId>jstl</artifactId>  
-       </dependency>  
-        
-        
-        
-       tomcat 的支持.  
-       <dependency>  
-           <groupId>org.springframework.boot</groupId>  
-           <artifactId>spring-boot-starter-tomcat</artifactId>  
-       </dependency>  
-       <dependency>  
-           <groupId>org.apache.tomcat.embed</groupId>  
-           <artifactId>tomcat-embed-jasper</artifactId>  
-       </dependency>   -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+        <!-- <dependency>
+                 <groupId>javax.servlet</groupId>
+                 <artifactId>javax.servlet-api</artifactId>
+             </dependency>
+
+             <dependency>
+                 <groupId>javax.servlet</groupId>
+                 <artifactId>jstl</artifactId>
+             </dependency>
+
+
+
+             tomcat 的支持.
+             <dependency>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-starter-tomcat</artifactId>
+             </dependency>
+             <dependency>
+                 <groupId>org.apache.tomcat.embed</groupId>
+                 <artifactId>tomcat-embed-jasper</artifactId>
+             </dependency>   -->
 		<!-- <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-redis</artifactId>

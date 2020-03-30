@@ -59,11 +59,12 @@ public class ShiroConfiguration {
 		defaultWebSessionManager.setSessionIdUrlRewritingEnabled(false);
 		//删除失效的sessionid
 		defaultWebSessionManager.setDeleteInvalidSessions(true);
-		//设置全局会话超时时间
-		//defaultWebSessionManager.setGlobalSessionTimeout(globalSessionTimeout*1000);
-		//defaultWebSessionManager.setSessionValidationInterval(globalSessionTimeout*1000);
-		//session验证
-		defaultWebSessionManager.setSessionValidationSchedulerEnabled(true); 
+		//设置全局会话超时时间单位毫秒
+		defaultWebSessionManager.setGlobalSessionTimeout(60*10*1000);
+		//指定验证会话的频率
+		//如果使用基础的默认SessionValidationScheduler（即，从不调用setSessionValidationScheduler方法），
+		//则此方法允许指定验证会话的频率（检查孤立项）。默认值为DEFAULT_SESSION_VALIDATION_INTERVAL.
+		defaultWebSessionManager.setSessionValidationInterval(60*10*1000);
 		defaultWebSessionManager.setSessionValidationScheduler(getExecutorServiceSessionValidationScheduler()); 
 		
 		defaultWebSessionManager.getSessionIdCookie().setName("session-z-id");  
