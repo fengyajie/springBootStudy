@@ -1,0 +1,89 @@
+package com.example.job;
+
+import com.example.util.JdSynJob;
+import com.mall.constant.JDSynJobConstant;
+import com.mall.dao.JDDao;
+import com.mall.entity.jd.EcmJdConfig;
+import com.mall.entity.jd.EcmJdTask;
+import com.mall.entity.jd.ScheduledOfTask;
+import com.mall.service.JDService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author fyj
+ */
+@RestController
+public class RefreshCronController {
+    @Autowired
+    private com.example.util.JdSynJob JdSynJob;
+
+    @Autowired
+    private ApplicationContext context;
+
+    @Autowired
+    private JDDao jDDao;
+
+    @Bean
+    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
+        return new ThreadPoolTaskScheduler();
+    }
+
+
+    /**
+     * 手动刷新 定时任务配置
+     * @param cron
+     */
+    @GetMapping("/refreshCron")
+    public void refreshCron(String cron){
+
+        String redisCron = jDDao.selectJDTask(JDSynJobConstant.SYN_DETAIL).get(0).getCron();
+
+        if(StringUtils.isNotBlank(redisCron)&&StringUtils.isNotBlank(cron)&&!redisCron.equals(cron)){
+            EcmJdTask ecmJdTask = new EcmJdTask();
+            ecmJdTask.setCron(cron);
+            ecmJdTask.setTaskName(JDSynJobConstant.SYN_DETAIL);
+            jDDao.updateTaskCron(ecmJdTask);
+
+            try {
+                ((ScheduledOfTask) context.getBean(Class.forName(JDSynJobConstant.SYN_DETAIL))).execute();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    /**
+     * 关停/启用任务
+     * @param status
+     */
+    @GetMapping("/updateTaskStatus")
+    public void updateTaskStatus(Integer status){
+        EcmJdTask ecmJdTask = new EcmJdTask();
+        ecmJdTask.setTaskName(JDSynJobConstant.SYN_DETAIL);
+        ecmJdTask.setStatus(status);
+        jDDao.updateTaskStatus(ecmJdTask);
+    }
+
+    /**
+     * 更改配置
+     * @param skuCount
+     * @param delJd
+     */
+    @GetMapping("/updateConfig")
+    public void updateConfig(Integer skuCount,Integer delJd){
+          EcmJdConfig ecmJdConfig = new EcmJdConfig();
+          ecmJdConfig.setSkuCount(skuCount);
+          ecmJdConfig.setDelJd(delJd);
+          jDDao.updateConfig(ecmJdConfig);
+    }
+
+}
