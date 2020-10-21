@@ -1,15 +1,7 @@
 package com.example.job;
 
 import com.example.util.JdSynJob;
-import com.mall.constant.JDSynJobConstant;
-import com.mall.dao.JDDao;
-import com.mall.entity.jd.EcmJdConfig;
-import com.mall.entity.jd.EcmJdTask;
-import com.mall.entity.jd.ScheduledOfTask;
-import com.mall.service.JDService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;

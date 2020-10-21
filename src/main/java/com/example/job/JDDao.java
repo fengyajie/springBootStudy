@@ -1,6 +1,5 @@
 package com.example.job;
 
-import com.mall.entity.jd.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
