@@ -9,6 +9,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 /**
  * @author fyj
  */
@@ -22,9 +24,16 @@ public class RefreshCronController {
 
     @Autowired
     private JDDao jDDao;
+    
+    @Autowired
+    private ThreadPoolTaskScheduler threadPoolTaskScheduler;
+    
+    @Autowired
+    private JdSynJob jdSynJob;
 
     @Bean
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
+        
         return new ThreadPoolTaskScheduler();
     }
 
@@ -45,8 +54,8 @@ public class RefreshCronController {
             jDDao.updateTaskCron(ecmJdTask);
 
             try {
-                ((ScheduledOfTask) context.getBean(Class.forName(JDSynJobConstant.SYN_DETAIL))).execute();
-            } catch (ClassNotFoundException e) {
+                threadPoolTaskScheduler.schedule(()->jdSynJob.execute(),new Date());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
